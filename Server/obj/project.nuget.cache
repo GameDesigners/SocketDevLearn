@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8EttK35H4mm+Mu4Armykb6d35nzReE3geePj+Is64RABXRjKtMOeMbPLA9VqJFX98tkYwI2yajnd90uaewQYUA==",
+  "dgSpecHash": "e0cu56vluocNChqeX9EaFa/FLDuAL1BqUEYBowrJRoGqUs46vVoz0RkHvi5h8EM9X4Xaydwigia5Mmcnp0smVA==",
   "success": true,
-  "projectFilePath": "E:\\ZhuSenlin Project\\SocketDevLearnProjects\\Server\\Server.csproj",
+  "projectFilePath": "D:\\GitProjects\\SocketDevLearn\\Server\\Server.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -27,6 +27,7 @@ namespace Server
             //监听
             listenfd.Listen(0);
             Console.WriteLine("[服务器]启动成功");
+            Console.WriteLine("[服务器]地址:"+ GetLocalIP().Trim());
 
             #region 同步的Accept和消息处理方法
             /*
@@ -57,6 +58,7 @@ namespace Server
             #endregion
 
             #region 同步的非阻塞方法-Poll
+            /*
             while (true)
             {
                 if (listenfd.Poll(0, SelectMode.SelectRead))
@@ -72,6 +74,34 @@ namespace Server
                     }
                 }
                 System.Threading.Thread.Sleep(1);   //防止CPU占用过高
+            }
+            */
+            #endregion
+
+            #region 多路复用Select
+            List<Socket> checkRead = new List<Socket>();  //检查是否可接收的Socket
+            while(true)
+            {
+                checkRead.Clear();
+                checkRead.Add(listenfd);
+                foreach (ClientState s in clients.Values)
+                    checkRead.Add(s.socket);
+
+                //Select
+                //Param1:检测是否有可读的socket
+                //Param2:检测是否有可写的Socket
+                //Param3:检测是否有错误的Socket
+                //Param4:等待响应的时间，时间为微秒
+                Socket.Select(checkRead, null, null, 1000);
+
+                //检查可读对象
+                foreach(Socket s in checkRead)
+                {
+                    if (s == listenfd)
+                        ReadListenfd(s);
+                    else
+                        ReadClientfd(s);
+                }
             }
             #endregion
         }
@@ -108,7 +138,7 @@ namespace Server
             {
                 _clientfd.Close();
                 clients.Remove(_clientfd);
-                Console.WriteLine("Socket Close");
+                Console.WriteLine("Socket Close.当前剩余客户端数量："+clients.Count);
                 return false;
             }
 
