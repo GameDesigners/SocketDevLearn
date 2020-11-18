@@ -1,0 +1,26 @@
+F:\C#Projects\Server\bin\Debug\netcoreapp3.1\Server.exe
+F:\C#Projects\Server\bin\Debug\netcoreapp3.1\Server.deps.json
+F:\C#Projects\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.json
+F:\C#Projects\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.dev.json
+F:\C#Projects\Server\bin\Debug\netcoreapp3.1\Server.dll
+F:\C#Projects\Server\bin\Debug\netcoreapp3.1\Server.pdb
+F:\C#Projects\Server\obj\Debug\netcoreapp3.1\Server.csprojAssemblyReference.cache
+F:\C#Projects\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
+F:\C#Projects\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
+F:\C#Projects\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
+F:\C#Projects\Server\obj\Debug\netcoreapp3.1\Server.dll
+F:\C#Projects\Server\obj\Debug\netcoreapp3.1\Server.pdb
+F:\C#Projects\Server\obj\Debug\netcoreapp3.1\Server.genruntimeconfig.cache
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\bin\Debug\netcoreapp3.1\Server.exe
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\bin\Debug\netcoreapp3.1\Server.deps.json
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.json
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.dev.json
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\bin\Debug\netcoreapp3.1\Server.dll
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\bin\Debug\netcoreapp3.1\Server.pdb
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\obj\Debug\netcoreapp3.1\Server.csprojAssemblyReference.cache
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\obj\Debug\netcoreapp3.1\Server.dll
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\obj\Debug\netcoreapp3.1\Server.pdb
+E:\ZhuSenlin Project\SocketDevLearnProjects\Server\obj\Debug\netcoreapp3.1\Server.genruntimeconfig.cache
