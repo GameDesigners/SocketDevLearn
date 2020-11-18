@@ -1,18 +1,22 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EchoForUsePoll : MonoBehaviour
 {
-    [Header("UI空间")]
+    [Header("UI控件")]
     [Tooltip("编辑文本框")] public InputField inputfield;
     [Tooltip("连接按钮")] public Button connBtn;
     [Tooltip("发送按钮")] public Button sendBtn;
     [Tooltip("消息文本")] public Text msgTextBox;
 
+    [Header("服务器IP4地址")] public string IPV4Address;
+
     //定义套接字
     private Socket socket;
+    private List<Socket> checkRead=new List<Socket>();
 
     string recvStr="";
 
@@ -22,7 +26,7 @@ public class EchoForUsePoll : MonoBehaviour
     public void Connection()
     {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        socket.Connect(GetLocalIP().Trim(), 8888);
+        socket.Connect(IPV4Address, 8888);
     }
 
     /// <summary>
@@ -58,15 +62,30 @@ public class EchoForUsePoll : MonoBehaviour
         if (socket == null)
             return;
 
-        if (socket.Poll(0, SelectMode.SelectRead))
+        //if (socket.Poll(0, SelectMode.SelectRead))
+        //{
+        //    byte[] readBuff = new byte[1024];
+        //    int count = socket.Receive(readBuff);
+        //    string s = System.Text.Encoding.Default.GetString(readBuff, 0, count);
+        //    Debug.Log("[接收到服务器的消息]" + recvStr);
+        //    recvStr = "<color=red>" + s + "</color>" + "\n" + recvStr.Replace("<color=red>", "<color=black>");
+        //    msgTextBox.text = recvStr;
+        //}
+
+        checkRead.Clear();
+        checkRead.Add(socket);
+        Socket.Select(checkRead, null, null, 0);
+        foreach(Socket cr in checkRead)
         {
             byte[] readBuff = new byte[1024];
-            int count = socket.Receive(readBuff);
+            int count = cr.Receive(readBuff);
             string s = System.Text.Encoding.Default.GetString(readBuff, 0, count);
             Debug.Log("[接收到服务器的消息]" + recvStr);
             recvStr = "<color=red>" + s + "</color>" + "\n" + recvStr.Replace("<color=red>", "<color=black>");
             msgTextBox.text = recvStr;
         }
+
+
     }
 
     /// <summary>

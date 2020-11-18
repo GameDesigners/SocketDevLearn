@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class Echo : MonoBehaviour
 {
-    [Header("UI空间")]
+    [Header("UI控件")]
     [Tooltip("编辑文本框")]public InputField inputfield;
     [Tooltip("连接按钮")] public Button connBtn;
     [Tooltip("发送按钮")] public Button sendBtn;
     [Tooltip("消息文本")] public Text msgTextBox;
+
+    [Header("服务器IP4地址")] public string IPV4Address;
 
     //定义套接字
     private Socket socket;
@@ -26,7 +28,7 @@ public class Echo : MonoBehaviour
 
         
         //异步客户端代码
-        socket.BeginConnect(GetLocalIP().Trim(), 8888, ConnectCallback, socket);
+        socket.BeginConnect(IPV4Address, 8888, ConnectCallback, socket);
     }
 
     //Connect的回调
