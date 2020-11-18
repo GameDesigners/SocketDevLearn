@@ -50,11 +50,82 @@ namespace Server
             #endregion
 
             #region 异步的Accept和消息处理方法
+            /*
             listenfd.BeginAccept(AcceptCallback, listenfd);
+            Console.ReadLine();
+            */
             #endregion
 
-            Console.ReadLine();
+            #region 同步的非阻塞方法-Poll
+            while (true)
+            {
+                if (listenfd.Poll(0, SelectMode.SelectRead))
+                    ReadListenfd(listenfd);
+
+                foreach(ClientState s in clients.Values)
+                {
+                    Socket clientfd = s.socket;
+                    if(clientfd.Poll(0,SelectMode.SelectRead))
+                    {
+                        if (!ReadClientfd(clientfd))
+                            break;
+                    }
+                }
+                System.Threading.Thread.Sleep(1);   //防止CPU占用过高
+            }
+            #endregion
         }
+
+        #region Poll方法需要的函数
+        public static void ReadListenfd(Socket _listenfd)
+        {
+            Console.WriteLine("[服务器]连接到客户端");
+            Socket clientfd = _listenfd.Accept();
+            ClientState state = new ClientState();
+            state.socket = clientfd;
+            clients.Add(clientfd, state);
+        }
+
+        public static bool ReadClientfd(Socket _clientfd)
+        {
+            ClientState state = clients[_clientfd];
+            //接收代码
+            int count = 0;
+            try
+            {
+                count = _clientfd.Receive(state.readBuff);
+            }
+            catch(SocketException ex)
+            {
+                _clientfd.Close();
+                clients.Remove(_clientfd);
+                Console.WriteLine("Socket连接失败：" + ex.ToString());
+                return false;
+            }
+
+            //客户端关闭
+            if (count == 0)
+            {
+                _clientfd.Close();
+                clients.Remove(_clientfd);
+                Console.WriteLine("Socket Close");
+                return false;
+            }
+
+            string recvStr = System.Text.Encoding.Default.GetString(state.readBuff, 0, count);
+            string sendStr = _clientfd.RemoteEndPoint.ToString() + ":" + recvStr;
+            Console.WriteLine("[接收到客户端消息]" + sendStr);
+
+            //发送
+            byte[] sendByte = System.Text.Encoding.Default.GetBytes(sendStr);
+            //遍历每一个客户端
+            foreach (ClientState s in clients.Values)
+            {
+                s.socket.Send(sendByte);//减少代码量，不用异步
+            }
+            return true;
+        }
+        #endregion
 
         /// <summary>
         /// Accept的回调函数,处理三件事
@@ -116,7 +187,7 @@ namespace Server
 
                 //发送
                 byte[] sendByte = System.Text.Encoding.Default.GetBytes(sendStr);
-                //变例每一个客户端
+                //遍历每一个客户端
                 foreach(ClientState s in clients.Values)
                 {
                     s.socket.Send(sendByte);//减少代码量，不用异步
